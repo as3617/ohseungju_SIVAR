@@ -1,29 +1,40 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/slimeprofile.jpg">
-    
-    <HelloWorld msg="Welcome to c2W2m2 world"/>
+  <div>
+    <router-link to="/" exact>Home   </router-link>
+    <router-link v-if="loggedIn" to="/logout">Logout   </router-link>
+    <router-link v-else to="/login" exact>Login   </router-link>
+    <router-link to="/posts">Posts  </router-link>
+    <router-link to="/posts/new" exact>New Post  </router-link>
+    <router-view></router-view>
+    <img alt ="INU-rogo" src="./assets/INU.png" height="300px" width= "500px">
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import {Auth} from './api'
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      loggedIn: Auth.loggedIn()
+    }
+  },
+  created() {
+    Auth.onChange = loggedIn => {
+      window.console.log('onchange', loggedIn)
+      this.loggedIn = loggedIn
+    }
+
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #0f86fd;
   margin-top: 60px;
 }
 </style>
